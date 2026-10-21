@@ -1,0 +1,157 @@
+/* 1 design px of the 2000x1336 Figma frame */
+.dl {
+  --u: min(0.9px, calc(100vw / 2000));
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  position: relative;
+  overflow: hidden;
+  background: #f4f2fa; /* previous section colour; the purple fades in over it */
+  isolation: isolate;
+}
+
+.dl__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: linear-gradient(180deg, #4f2fa5 0%, #4a2b9b 45%, #412389 100%);
+  opacity: 0;
+  transition: opacity 700ms var(--ease);
+}
+
+.dl__stage {
+  position: relative;
+  width: calc(2000 * var(--u));
+  height: calc(1336 * var(--u));
+  margin: 0 auto;
+}
+
+/* ---- ribbon (behind everything) ---- */
+.dl__vec {
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 0;
+  width: calc(2000 * var(--u));
+  height: calc(1336 * var(--u));
+  overflow: visible;
+  pointer-events: none;
+}
+.dl__pen {
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1; /* fully hidden until the entrance starts */
+}
+.dl.is-in .dl__pen {
+  animation: dl-trace 11s linear 150ms infinite both;
+}
+.dl:not(.is-vis) .dl__pen { animation-play-state: paused; }
+
+/* draw -> hold -> tail retracts along the same path -> redraw (no jumps) */
+@keyframes dl-trace {
+  0%   { stroke-dashoffset: 1;  animation-timing-function: cubic-bezier(0.45, 0, 0.35, 1); }
+  50%  { stroke-dashoffset: 0;  animation-timing-function: linear; }
+  63%  { stroke-dashoffset: 0;  animation-timing-function: cubic-bezier(0.45, 0, 0.35, 1); }
+  100% { stroke-dashoffset: -1; }
+}
+
+/* ---- content ---- */
+.dl__frame {
+  position: absolute;
+  left: calc(174 * var(--u));
+  top: calc(270 * var(--u));
+  display: flex;
+  gap: calc(32 * var(--u));
+  align-items: stretch;
+}
+
+.dl__card {
+  box-sizing: border-box;
+  width: calc(601 * var(--u));
+  height: calc(733 * var(--u));
+  padding: calc(112 * var(--u)) calc(63 * var(--u)) calc(88 * var(--u));
+  background: #fff;
+  border-radius: calc(27 * var(--u));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #0c0a0d;
+}
+
+.dl__title {
+  margin: 0;
+  font-size: max(30px, calc(54 * var(--u)));
+  line-height: 1.09;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.dl__text {
+  margin: calc(72 * var(--u)) 0 0;
+  max-width: calc(370 * var(--u));
+  font-size: max(16px, calc(22 * var(--u)));
+  line-height: 1.45;
+  font-weight: 500;
+  color: #3f3f46;
+}
+
+.dl__cta {
+  /* Button has its own unit so its parts never get squeezed: it is sized by its content,
+     scaling with the section but never below 0.6px per design px. */
+  --b: max(var(--u), 0.6px);
+  margin-top: auto;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: calc(30 * var(--b));
+  height: calc(74 * var(--b));
+  padding: 0 calc(35 * var(--b));
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  font-size: calc(18 * var(--b));
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.dl__cta:hover { background: #26222c; }
+.dl__cta:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.dl__icons { display: flex; flex: none; align-items: center; gap: calc(10 * var(--b)); }
+.dl__icons img { flex: none; width: calc(26.5 * var(--b)); height: calc(26.5 * var(--b)); display: block; }
+.dl__icons img.dl__sep { width: auto; height: calc(18.7 * var(--b)); }
+
+.dl__photo {
+  width: calc(946 * var(--u));
+  height: calc(733 * var(--u));
+  object-fit: cover;
+  display: block;
+}
+
+/* ---- entrance: one composition, played once ---- */
+.dl.is-in .dl__bg { opacity: 1; }
+
+.dl__r {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  transition:
+    opacity 560ms var(--ease) var(--d, 0ms),
+    transform 560ms var(--ease) var(--d, 0ms);
+}
+.dl__r--card { transform: translate3d(0, 26px, 0); transition-duration: 800ms; }
+.dl__r--photo { transform: scale(0.97); transition-duration: 850ms; transform-origin: 50% 50%; }
+.dl.is-in .dl__r { opacity: 1; transform: none; }
+.dl.is-in .dl__cta { transition: opacity 560ms var(--ease) var(--d, 0ms), transform 560ms var(--ease) var(--d, 0ms), background 0.2s; }
+
+/* ---- tablet / mobile: stack ---- */
+@media (max-width: 860px) {
+  .dl__stage { width: auto; height: auto; padding: 56px 16px 64px; }
+  .dl__vec { width: max(1300px, 330vw); height: auto; }
+  .dl__frame { position: static; flex-direction: column; gap: 16px; }
+  .dl__card { width: 100%; height: auto; padding: 40px 24px 28px; border-radius: 22px; }
+  .dl__title { font-size: clamp(34px, 9vw, 48px); text-wrap: balance; }
+  .dl__br { display: none; }
+  .dl__text { margin-top: 18px; max-width: 24em; font-size: 17px; }
+  .dl__cta { --b: 0.8px; margin-top: 36px; }
+  .dl__photo { width: 100%; height: auto; aspect-ratio: 2000 / 1549; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dl__bg, .dl__r { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .dl__pen, .dl.is-in .dl__pen { animation: none !important; stroke-dashoffset: 0; }
+}

@@ -1,0 +1,123 @@
+/* 1 design px of the 1739px-wide Figma frame */
+.ft {
+  --u: min(1px, calc(100vw / 1739));
+  background: #111;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* ---- Beyond Borders + QR ---- */
+.ft__cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: max(56px, calc(150 * var(--u))) 16px 0;
+}
+.ft__big {
+  margin: 0;
+  text-align: center;
+  font-size: clamp(64px, 24vw, calc(265 * var(--u)));
+  line-height: 0.9;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  background: linear-gradient(180deg, #fbfaff 0%, #e9e4fb 38%, #ab9dfb 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  padding-bottom: 0.04em; /* keep descenders inside the clip */
+}
+.ft__qr {
+  display: block;
+  width: max(240px, calc(461 * var(--u)));
+  height: auto;
+  margin-top: max(40px, calc(92 * var(--u)));
+}
+
+/* ---- footer ---- */
+.ft__foot {
+  width: min(calc(100% - 32px), calc(1439 * var(--u)));
+  margin: max(56px, calc(106 * var(--u))) auto 0;
+  border-top: 1px solid #2a2a2c;
+  border-bottom: 1px solid #2a2a2c;
+  padding: calc(77 * var(--u)) calc(42 * var(--u)) calc(82 * var(--u));
+  margin-bottom: calc(139 * var(--u));
+  box-sizing: border-box;
+}
+
+.ft__grid {
+  display: grid;
+  grid-template-columns: calc(664 * var(--u)) calc(189 * var(--u)) 1fr;
+  align-items: start;
+}
+
+.ft__logo { display: block; width: max(140px, calc(218 * var(--u))); height: auto; }
+.ft__tag {
+  margin: calc(25 * var(--u)) 0 0;
+  font-size: max(14px, calc(18 * var(--u)));
+  line-height: 1.5;
+  color: #d4d4d8;
+}
+.ft__rights {
+  margin: calc(10 * var(--u)) 0 0;
+  font-size: max(15px, calc(20 * var(--u)));
+  line-height: 1.4;
+  font-weight: 500;
+  color: #fff;
+}
+
+.ft__h {
+  margin: 0;
+  font-size: max(16px, calc(20 * var(--u)));
+  line-height: 1.2;
+  font-weight: 600;
+  color: #fff;
+}
+.ft__list { list-style: none; margin: 0; padding: 0; }
+.ft__list li, .ft__list address {
+  font-size: max(14px, calc(18 * var(--u)));
+  line-height: 1.5;
+  font-style: normal;
+  color: #d4d4d8;
+}
+.ft__list a { color: inherit; text-decoration: none; transition: color 0.2s; }
+.ft__list a:hover, .ft__legal a:hover { color: #b9acff; }
+.ft__list a:focus-visible, .ft__legal a:focus-visible { outline: 2px solid #b9acff; outline-offset: 3px; border-radius: 4px; }
+.ft__list--social { margin-top: calc(35 * var(--u)); }
+.ft__list--social li + li { margin-top: calc(21 * var(--u)); }
+.ft__list--company { margin-top: calc(30 * var(--u)); max-width: calc(470 * var(--u)); }
+.ft__list--company li + li { margin-top: calc(21 * var(--u)); }
+
+.ft__legal {
+  margin-top: calc(100 * var(--u));
+  display: flex;
+  gap: calc(52 * var(--u));
+  flex-wrap: wrap;
+}
+.ft__legal a {
+  font-size: max(15px, calc(20 * var(--u)));
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+/* ---- mobile ---- */
+@media (max-width: 760px) {
+  .ft__cta { padding-top: 64px; }
+  .ft__big { font-size: clamp(64px, 24vw, 200px); }
+  .ft__qr { width: min(300px, 72vw); margin-top: 40px; }
+  .ft__foot { padding: 40px 4px 36px; margin-top: 56px; margin-bottom: 40px; }
+  .ft__grid { grid-template-columns: 1fr 1fr; gap: 36px 20px; }
+  .ft__brand { grid-column: 1 / -1; }
+  .ft__tag { margin-top: 20px; }
+  .ft__list--social { margin-top: 16px; }
+  .ft__list--social li + li, .ft__list--company li + li { margin-top: 12px; }
+  .ft__list--company { margin-top: 16px; max-width: none; }
+  .ft__legal { margin-top: 44px; gap: 28px; }
+}
+@media (max-width: 480px) {
+  .ft__grid { grid-template-columns: 1fr; }
+}

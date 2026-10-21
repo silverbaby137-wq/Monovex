@@ -1,0 +1,157 @@
+/* 1 design px at the 1289px reference frame from the Figma screenshot */
+.me {
+  --u: min(1px, calc(100vw / 1289));
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  background: #f4f2fa;
+  color: #0c0a10;
+  padding: max(56px, calc(135 * var(--u))) 16px max(64px, calc(120 * var(--u)));
+  overflow: hidden;
+}
+
+.me__title {
+  margin: 0;
+  text-align: center;
+  font-size: max(30px, calc(44 * var(--u)));
+  line-height: 1.16;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.me__list {
+  width: min(100%, calc(1067 * var(--u)));
+  margin: max(36px, calc(72 * var(--u))) auto 0;
+  display: grid;
+  gap: max(20px, calc(75 * var(--u)));
+}
+
+.me__card {
+  display: grid;
+  grid-template-columns: 1fr calc(494 * var(--u));
+  align-items: center;
+  min-height: calc(469 * var(--u));
+  padding: calc(35 * var(--u)) calc(27 * var(--u)) calc(33 * var(--u)) calc(110 * var(--u));
+  background: #fff;
+  border-radius: calc(26 * var(--u));
+}
+.me__card:nth-child(3) { padding-left: calc(122 * var(--u)); }
+.me__card--flip {
+  grid-template-columns: calc(494 * var(--u)) 1fr;
+  padding: calc(34 * var(--u)) calc(40 * var(--u)) calc(34 * var(--u)) calc(32 * var(--u));
+}
+.me__card--flip .me__photo { order: -1; }
+.me__card--flip .me__copy { padding-left: calc(88 * var(--u)); }
+
+.me__copy { display: flex; flex-direction: column; align-items: flex-start; }
+
+.me__chip {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: calc(8 * var(--u));
+  font-size: max(12px, calc(13 * var(--u)));
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.me__chip-ico { height: max(13px, calc(15 * var(--u))); width: auto; display: block; }
+
+.me__h3 {
+  margin: calc(14 * var(--u)) 0 0;
+  font-size: max(30px, calc(38 * var(--u)));
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+.me__p {
+  margin: calc(46 * var(--u)) 0 0;
+  max-width: 21em;
+  font-size: max(15.5px, calc(17.5 * var(--u)));
+  line-height: 1.22;
+  color: #4a4a55;
+}
+
+.me__btn {
+  margin-top: calc(32 * var(--u));
+  display: inline-flex;
+  align-items: center;
+  gap: calc(22 * var(--u));
+  height: max(46px, calc(50 * var(--u)));
+  padding: 0 calc(26 * var(--u));
+  border-radius: 999px;
+  background: #0c0a0d;
+  color: #fff;
+  font-size: max(15px, calc(16 * var(--u)));
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.me__btn:hover { background: #26222c; }
+.me__btn:focus-visible { outline: 2px solid #6b4dff; outline-offset: 3px; }
+.me__chev { width: calc(17 * var(--u)); min-width: 14px; height: auto; }
+
+/* Photo + overlays. Overlay boxes are % of the photo so they scale with it. */
+.me__photo { position: relative; line-height: 0; }
+.me__img { width: 100%; height: auto; display: block; }
+.me__ov { position: absolute; display: block; height: auto; }
+.me__send { left: 25.7%; top: 52.6%; width: 16.2%; }
+.me__gift { left: 60.3%; top: 57.6%; width: 31.8%; aspect-ratio: 147 / 128; }
+.me__gift-l { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.me__att { left: 1.2%; top: 22.9%; width: 60.5%; }
+.me__usd { left: 50.2%; top: 59.1%; width: 38.7%; }
+
+/* ---- Scroll reveal: opacity/transform only, once per card ---- */
+.me__head,
+.me__card {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.me__head.is-in,
+.me__card.is-in { opacity: 1; transform: none; }
+
+.me__r {
+  opacity: 0;
+  transform: translate3d(var(--x, 0), var(--y, 12px), 0);
+  transition:
+    opacity var(--t, 520ms) var(--ease) var(--d, 0ms),
+    transform var(--t, 520ms) var(--ease) var(--d, 0ms);
+}
+.me__card.is-in .me__r { opacity: 1; transform: none; }
+/* button keeps its own hover colour transition after the reveal */
+.me__card.is-in .me__btn {
+  transition:
+    opacity var(--t, 520ms) var(--ease) var(--d, 0ms),
+    transform var(--t, 520ms) var(--ease) var(--d, 0ms),
+    background 0.2s;
+}
+
+/* ---- Tablet / mobile: stack copy above photo ---- */
+@media (max-width: 860px) {
+  .me__card,
+  .me__card--flip,
+  .me__card:nth-child(3) {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    min-height: 0;
+    padding: 28px 20px 20px;
+    border-radius: 22px;
+  }
+  .me__card--flip .me__photo { order: 0; }
+  .me__card--flip .me__copy { padding-left: 0; }
+  .me__h3 { margin-top: 12px; }
+  .me__p { margin-top: 16px; max-width: 30em; }
+  .me__btn { margin-top: 22px; height: 46px; padding: 0 22px; gap: 16px; }
+  .me__chev { width: 15px; }
+  .me__chip { font-size: 13px; gap: 8px; }
+  .me__chip-ico { height: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .me__head,
+  .me__card,
+  .me__r {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

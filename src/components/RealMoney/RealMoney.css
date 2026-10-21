@@ -1,0 +1,314 @@
+/* 1 design px at the 1988px reference frame, so the layout matches Figma at 1440 */
+.rm {
+  --u: min(0.724px, calc(100vw / 1988));
+  background: #fff;
+  color: #0c0619;
+  text-align: center;
+  padding: max(64px, calc(230 * var(--u))) 16px max(64px, calc(230 * var(--u)));
+  overflow: hidden;
+}
+
+.rm__title {
+  margin: 0;
+  font-size: max(36px, calc(69 * var(--u)));
+  line-height: 1.07;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.rm__lead {
+  margin: max(20px, calc(39 * var(--u))) auto 0;
+  max-width: 34em;
+  font-size: max(17px, calc(23.5 * var(--u)));
+  line-height: 1.38;
+  color: #4a4a55;
+  text-wrap: balance;
+}
+
+.rm__grid {
+  width: min(100%, calc(1646 * var(--u)));
+  margin: max(40px, calc(114 * var(--u))) auto 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(15 * var(--u));
+  text-align: left;
+}
+
+.rm__panel {
+  position: relative;
+  container-type: inline-size;
+  border-radius: calc(36 * var(--u));
+  overflow: hidden;
+}
+
+.rm__panel--purple {
+  background: #361971;
+  color: #fff;
+}
+
+.rm__in {
+  --k: calc(100cqw / 815);
+  display: flex;
+  flex-direction: column;
+  padding: max(40px, calc(161 * var(--k))) 0 max(32px, calc(117 * var(--k)));
+}
+
+.rm__panel--photo {
+  min-height: 0;
+}
+
+.rm__panel--photo img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+}
+
+.rm__list {
+  list-style: none;
+  margin: 0 0 max(40px, calc(102 * var(--k)));
+  padding: 0 0 0 max(24px, calc(162 * var(--k)));
+  display: grid;
+  gap: calc(0 * var(--k));
+}
+
+.rm__item {
+  display: flex;
+  align-items: center;
+  gap: calc(26 * var(--k));
+  min-height: max(40px, calc(62 * var(--k)));
+  font-size: max(17px, calc(28 * var(--k)));
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+}
+
+.rm__ico {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: max(22px, calc(32 * var(--k)));
+  height: max(22px, calc(32 * var(--k)));
+}
+
+.rm__ico svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* coin + cards composition, measured in its own 608-unit space */
+.rm__comp {
+  container-type: inline-size;
+  width: max(calc(608 * var(--k)), min(92cqw, 520px));
+  max-width: 92cqw;
+  margin: 0 auto;
+  aspect-ratio: 608 / 365;
+}
+
+.rm__comp-in {
+  --c: calc(100cqw / 608);
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.rm__coin {
+  position: absolute;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.rm__coin--dollar {
+  left: calc(148 * var(--c));
+  top: calc((-36 + var(--n, 0) * 12) * var(--c));
+  width: calc(376 * var(--c));
+}
+
+.rm__coin--pound {
+  left: calc(-67 * var(--c));
+  top: calc(45 * var(--c));
+  width: calc(363 * var(--c));
+}
+
+.rm__sent {
+  position: absolute;
+  left: calc(78 * var(--c));
+  top: calc(107 * var(--c));
+  width: calc(329 * var(--c));
+  height: calc(65 * var(--c));
+  border-radius: 999px;
+  background: #fff;
+  color: #0c0619;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 calc(6 * var(--c)) calc(24 * var(--c)) rgba(12, 6, 25, 0.12);
+}
+
+.rm__avatar {
+  flex: none;
+  width: calc(38 * var(--c));
+  height: calc(38 * var(--c));
+  margin-left: calc(17 * var(--c));
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 20%;
+  border: calc(1.5 * var(--c)) solid #381189;
+}
+
+.rm__sol {
+  flex: none;
+  width: calc(36 * var(--c));
+  height: calc(36 * var(--c));
+  margin-left: calc(16 * var(--c));
+}
+
+.rm__sent-txt {
+  margin-left: calc(13 * var(--c));
+  display: grid;
+  gap: calc(1 * var(--c));
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.rm__sent-txt strong {
+  font-size: calc(20 * var(--c));
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.rm__sent-txt span {
+  font-size: calc(13.500 * var(--c));
+  color: #2c2c35;
+}
+
+.rm__swap {
+  position: absolute;
+  left: calc(167 * var(--c));
+  top: calc(211 * var(--c));
+  width: calc(439 * var(--c));
+  height: calc(153 * var(--c));
+  border-radius: calc(40 * var(--c));
+  background: #f8f8fa;
+  color: #0c0619;
+  box-shadow: 0 calc(8 * var(--c)) calc(30 * var(--c)) rgba(12, 6, 25, 0.16);
+}
+
+.rm__pair {
+  position: absolute;
+  left: calc(36 * var(--c));
+  top: calc(40 * var(--c));
+  width: calc(137 * var(--c));
+  height: calc(72 * var(--c));
+  border-radius: 999px;
+  background: #fff;
+}
+
+.rm__pair-btc,
+.rm__pair-eth {
+  position: absolute;
+  top: calc(8 * var(--c));
+  width: calc(56 * var(--c));
+  height: calc(56 * var(--c));
+}
+
+.rm__pair-btc {
+  left: calc(10 * var(--c));
+}
+
+.rm__pair-btc circle {
+  fill: #6b1cf0;
+}
+
+.rm__pair-eth {
+  left: calc(66 * var(--c));
+}
+
+.rm__amount {
+  position: absolute;
+  left: calc(216 * var(--c));
+  top: calc(38 * var(--c));
+  width: calc(190 * var(--c));
+  height: calc(76 * var(--c));
+  border-radius: 999px;
+  background: #efeff2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(8 * var(--c));
+  font-size: calc(31 * var(--c));
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.rm__amount svg {
+  width: calc(30 * var(--c));
+  height: calc(30 * var(--c));
+}
+
+/* ---------- scroll-in reveal (plays once; opacity/transform only, no layout shift) ---------- */
+.rm__r {
+  opacity: 0;
+  transform: translateY(calc(28 * var(--u)));
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0ms),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0ms);
+}
+
+.rm__r--panel {
+  transform: translateY(calc(56 * var(--u))) scale(0.985);
+}
+
+.rm__r--pop {
+  transform: translateY(calc(40 * var(--c, 1px))) scale(0.94);
+}
+
+.rm.is-in .rm__r {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rm__r {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------- tablet / phone: stack, photo below ---------- */
+@media (max-width: 900px) {
+  .rm__grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    width: min(100%, 640px);
+  }
+
+  .rm__panel {
+    border-radius: 28px;
+  }
+
+  .rm__panel--photo {
+    aspect-ratio: 4 / 4.4;
+  }
+
+  .rm__title br,
+  .rm__lead br {
+    display: none;
+  }
+
+  .rm__title {
+    font-size: clamp(34px, 9vw, 56px);
+    text-wrap: balance;
+  }
+
+  .rm__list {
+    padding-left: clamp(24px, 9cqw, 72px);
+  }
+
+  .rm__lead {
+    max-width: 24em;
+  }
+}

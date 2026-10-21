@@ -1,0 +1,149 @@
+.ss {
+  --u: min(0.72px, calc(100vw / 2000));
+  background: #f7f6f9;
+  color: #0c0619;
+  padding: max(64px, calc(215 * var(--u))) 16px max(64px, calc(150 * var(--u)));
+  overflow: hidden;
+}
+
+.ss__head {
+  width: min(100%, calc(1646 * var(--u)));
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  gap: calc(118 * var(--u));
+}
+
+.ss__title {
+  margin: 0;
+  flex: none;
+  font-size: max(36px, calc(86 * var(--u)));
+  line-height: 1.17;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.ss__rule {
+  flex: 1;
+  height: 1px;
+  margin-bottom: calc(26 * var(--u));
+  background: #0c0619;
+}
+
+.ss__grid {
+  width: min(100%, calc(1646 * var(--u)));
+  margin: max(36px, calc(116 * var(--u))) auto 0;
+  display: grid;
+  grid-template-columns: 525fr 553fr 525fr;
+  grid-template-areas:
+    'c1 p c2'
+    'c3 p c4';
+  column-gap: calc(21.500 * var(--u));
+  row-gap: calc(30 * var(--u));
+}
+
+.ss__card {
+  display: block;
+  width: 100%;
+  height: auto;
+  align-self: start;
+}
+
+.ss__card--1 {
+  grid-area: c1;
+}
+
+.ss__card--2 {
+  grid-area: c2;
+}
+
+.ss__card--3 {
+  grid-area: c3;
+}
+
+.ss__card--4 {
+  grid-area: c4;
+}
+
+.ss__panel {
+  grid-area: p;
+  position: relative;
+  aspect-ratio: 553 / 901;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .ss__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .ss__title {
+    font-size: clamp(34px, 9vw, 56px);
+  }
+
+  .ss__rule {
+    width: 100%;
+    flex: none;
+    margin: 0;
+  }
+
+  .ss__grid {
+    width: min(100%, 720px);
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'p p'
+      'c1 c2'
+      'c3 c4';
+    gap: 14px;
+  }
+
+  .ss__panel {
+    width: min(100%, 440px);
+    justify-self: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .ss__grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'p'
+      'c1'
+      'c2'
+      'c3'
+      'c4';
+  }
+}
+
+/* ---------- scroll-in reveal (plays once; opacity/transform only) ---------- */
+.ss__r {
+  opacity: 0;
+  transform: translateY(calc(30 * var(--u)));
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0ms),
+    transform 0.95s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0ms);
+}
+
+.ss__r--panel {
+  transform: translateY(calc(60 * var(--u))) scale(0.985);
+}
+
+.ss__r--rule {
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.ss.is-in .ss__r {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss__r {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

@@ -1,0 +1,183 @@
+.nav {
+  position: absolute;
+  inset: 21px 0 auto 0;
+  z-index: 20;
+  padding: 0 16px;
+}
+
+.nav__pill {
+  position: relative;
+  width: 100%;
+  max-width: clamp(958px, 80vw, 1400px); /* ~80% of the viewport on desktop, capped */
+  height: 57px;
+  margin: 0 auto;
+  padding: 0 12px 0 clamp(25px, 2.6vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex: none;
+}
+
+.nav__brand span {
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.nav__links {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: clamp(32px, 3.8vw, 60px);
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.nav__links a {
+  opacity: 0.95;
+  transition: opacity 0.2s;
+}
+
+.nav__links a:hover {
+  opacity: 0.7;
+}
+
+.nav__menu-actions { display: none; }
+
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 1.2vw, 20px);
+  padding-right: clamp(0px, 0.6vw, 8px);
+}
+
+.nav__signin,
+.nav__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  height: 34px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.nav__signin {
+  width: 65px;
+  background: rgba(255, 255, 255, 0.45);
+  color: #fff;
+}
+
+.nav__cta {
+  padding: 0 14px;
+  background: #fff;
+  color: #14082c;
+}
+
+.nav__toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  position: relative;
+  padding: 0;
+}
+.nav__toggle:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.nav__toggle span {
+  position: absolute;
+  left: 13px;
+  right: 13px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.2s, top 0.2s, opacity 0.2s;
+}
+.nav__toggle span:nth-child(1) { top: 15px; }
+.nav__toggle span:nth-child(2) { top: 21px; }
+.nav__toggle span:nth-child(3) { top: 27px; }
+.nav__toggle[aria-expanded='true'] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+.nav__toggle[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
+.nav__toggle[aria-expanded='true'] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+/* Tablet: tighter spacing, everything still visible */
+@media (max-width: 900px) {
+  /* in-flow so links sit between brand and buttons and can never overlap them */
+  .nav__links { position: static; transform: none; margin: 0 auto; gap: 20px; font-size: 14px; }
+  .nav__brand span { font-size: 21px; }
+  .nav__pill { padding-left: 20px; }
+  .nav__actions { gap: 10px; }
+  .nav__cta { padding: 0 12px; font-size: 12.5px; }
+  .nav__signin { width: 58px; font-size: 12.5px; }
+}
+
+/* Mobile: logo + hamburger only; links and both buttons live in the menu */
+@media (max-width: 720px) {
+  .nav { inset-block-start: 14px; }
+  .nav__pill { padding: 0 6px 0 18px; height: 56px; }
+  .nav__toggle { display: block; }
+  .nav__actions > .nav__signin,
+  .nav__actions > .nav__cta { display: none; }
+  .nav__brand img { width: 46px; height: auto; }
+  .nav__brand span { font-size: 20px; }
+
+  .nav__links {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    margin: 0;
+    transform: none;
+    flex-direction: column;
+    gap: 0;
+    padding: 8px;
+    max-height: calc(100svh - 100px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-radius: 28px;
+    background: rgba(34, 16, 78, 0.97);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    font-size: 17px;
+  }
+  .nav__links.is-open { display: flex; }
+  .nav__links > a { padding: 14px 16px; min-height: 44px; display: flex; align-items: center; border-radius: 16px; }
+  .nav__links > a:hover { background: rgba(255, 255, 255, 0.08); }
+  .nav__menu-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 8px 8px 8px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+  }
+  .nav__menu-actions .nav__signin,
+  .nav__menu-actions .nav__cta {
+    display: inline-flex;
+    width: 100%;
+    height: 46px;
+    font-size: 15px;
+    padding: 0;
+  }
+}
+
+@media (max-height: 480px) and (max-width: 720px) {
+  .nav__links > a { padding-block: 9px; }
+}
